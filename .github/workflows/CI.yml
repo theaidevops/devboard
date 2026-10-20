@@ -35,7 +35,7 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       - name: Docker Build And Push
         uses: docker/build-push-action@v7
         with:
@@ -82,7 +82,10 @@ jobs:
           push: true
           tags: ${{vars.DOCKERHUB_USERNAME}}/devboard-backend:latest
 
-  
+  Deploy:
+    needs: [frontend, backend]
+    uses: ./.github/workflows/CD.yml
+    secrets: inherit
 
 
 

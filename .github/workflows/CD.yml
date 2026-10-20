@@ -1,0 +1,25 @@
+name: CD
+
+on:
+  workflow_call:
+
+jobs:
+  Deploy:
+    runs-on: selfhosted
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v7
+
+      - name: copy example Env to main Env
+        run: cp .env.example .env
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Deploy The Containers With Docker Compose
+        run: |
+          docker compose pull 
+          docker compose up -d
