@@ -29,7 +29,15 @@ jobs:
       - name: Run Test 
         run: npm run test
         working-directory: frontend
-  
+
+      - name: Docker Build And Push
+        uses: docker/build-push-action@v7
+        with:
+          context : ./frontend/Dockerfile
+          push: true
+          tags: ${{vars.DOCKERHUB_USERNAME}}/devboard-frontend:latest
+
+
   Backend:
     runs-on: ubuntu-latest
     steps:
@@ -54,6 +62,15 @@ jobs:
       - name: Run Test 
         run: go test
         working-directory: backend
+      
+      - name: Docker Build And Push
+        uses: docker/build-push-action@v7
+        with:
+          context : ./backend/Dockerfile
+          push: true
+          tags: ${{vars.DOCKERHUB_USERNAME}}/devboard-backend:latest
+
+  
 
 
 
