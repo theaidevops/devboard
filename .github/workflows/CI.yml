@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-          cache-dependency-patch: frontent/package.json
+          cache-dependency-patch: frontent/package-lock.json
         
       - name: Install npm Packages
         run: npm install
